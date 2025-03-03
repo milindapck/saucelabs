@@ -21,8 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Install Web Browsers
@@ -32,6 +31,4 @@ jobs:
 
       - name: Run Selenium tests on ${{ matrix.browser }}
         run: |
-          source venv/bin/activate
           pytest walmart_test.py --browser=${{ matrix.browser }}
-
