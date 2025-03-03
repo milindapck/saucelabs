@@ -1,0 +1,37 @@
+name: Selenium Tests on GitHub Actions
+
+on: [push, pull_request]  # Run on push and pull requests
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use Ubuntu runner
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox]  # Run tests on both Chrome & Firefox
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Install Web Browsers
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable firefox
+
+      - name: Run Selenium tests on ${{ matrix.browser }}
+        run: |
+          source venv/bin/activate
+          pytest walmart_test.py --browser=${{ matrix.browser }}
+
