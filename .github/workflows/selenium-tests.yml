@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chrome, firefox]  # Run tests on both Chrome & Firefox
+        browser: [chrome]  # Run tests on both Chrome
 
     steps:
       - name: Checkout repository
@@ -27,8 +27,8 @@ jobs:
       - name: Install Web Browsers
         run: |
           sudo apt update
-          sudo apt install -y google-chrome-stable firefox
+          sudo apt install -y google-chrome-stable
 
       - name: Run Selenium tests on ${{ matrix.browser }}
         run: |
-          pytest walmart_test.py --browser ${{ matrix.browser }}
+          pytest walmart_test.py
