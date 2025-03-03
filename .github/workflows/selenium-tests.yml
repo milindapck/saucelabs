@@ -31,4 +31,4 @@ jobs:
 
       - name: Run Selenium tests on ${{ matrix.browser }}
         run: |
-          pytest walmart_test.py --browser=${{ matrix.browser }}
+          pytest walmart_test.py --browser ${{ matrix.browser }}
